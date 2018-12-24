@@ -2,8 +2,11 @@ package com.kafka.log;
 
 import com.kafka.log.common.LogConsumer;
 import com.kafka.log.common.LogProducer;
+import com.kafka.log.common.TopicClass;
 import com.kafka.log.conf.ConsumerConf;
 import com.kafka.log.conf.ProducerConf;
+import com.kafka.log.conf.TopicConf;
+import kafka.security.auth.Topic;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -16,6 +19,7 @@ public class logAction {
         ApplicationContext app = new ClassPathXmlApplicationContext("kafkaconf.xml");
         ConsumerConf cc= (ConsumerConf) app.getBean("consumerconf");
         ProducerConf pc= (ProducerConf) app.getBean("producerconf");
+        TopicConf tc=(TopicConf) app.getBean("topicsconf");
 
 //        LogProducer prod1=new LogProducer(server,"dell-topic",pc);
 //        LogProducer prod2=new LogProducer(server,"dell-topic",pc);
@@ -31,6 +35,9 @@ public class logAction {
         consu1.start();
         consu2.start();
         consu3.start();
+
+//        TopicClass topicclass=new TopicClass(server,tc);
+//        topicclass.createTopic("my_topic",3,(short)1);
 
 
     }

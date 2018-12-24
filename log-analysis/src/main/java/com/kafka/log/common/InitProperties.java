@@ -2,8 +2,11 @@ package com.kafka.log.common;
 
 import com.kafka.log.conf.ConsumerConf;
 import com.kafka.log.conf.ProducerConf;
+import com.kafka.log.conf.TopicConf;
+import org.apache.kafka.clients.admin.AdminClientConfig;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.common.config.TopicConfig;
 
 import java.util.Properties;
 
@@ -55,6 +58,19 @@ public class InitProperties {
         prop.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG,consumer_conf.session_timeout_ms);
         prop.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG,consumer_conf.key_deserializer);
         prop.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,consumer_conf.value_deserializer);
+        return prop;
+    }
+
+
+    /**
+     *
+     * AdminClient初始化中，配置传入为new AdminClientConfig(props)
+     * @param topic_conf
+     * @return
+     */
+    public Properties getTopicProp(TopicConf topic_conf){
+        Properties prop = new Properties();
+        prop.put(AdminClientConfig.RETRIES_CONFIG,topic_conf.topicRetry);
         return prop;
     }
 
